@@ -1,5 +1,4 @@
 # Melodify - Музыкальный движок для [VoxelCore](https://github.com/MihailRis/voxelcore)
-## Melodify - Музыкальный движок
 
 Теперь ваш мир станет ярче и атмосфернее!
 
