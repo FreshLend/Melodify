@@ -1,15 +1,10 @@
-load_script("melodify:scripts/main.lua")
-local track_error_displayed = false
+load_script("melodify:scripts/api.lua")
 
 local stream_id = 0
 local volume = 1
 
 local function play_random_track()
     if #tracks == 0 then
-        if not track_error_displayed then
-            print("[Ошибка] Не удалось найти треки.")
-            track_error_displayed = true
-        end
         return
     end
     local track = tracks[math.random(1, #tracks)]

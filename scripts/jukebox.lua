@@ -1,6 +1,6 @@
 local speaker_ids = {}
 
-load_script("melodify:scripts/main.lua")
+load_script("melodify:scripts/api.lua")
 
 function on_interact(x, y, z, playerid)
     local player_invid, player_slot = player.get_inventory(playerid)
@@ -9,7 +9,7 @@ function on_interact(x, y, z, playerid)
     local block_invid = inventory.get_block(x, y, z)
 
     if block_invid == 0 then
-        print("[ОШИБКА] Melodify: музыкальный блок в координатах "..x..", "..y..", "..z.." не имеет инвентаря.")
+        print("[E] Melodify: музыкальный блок в координатах "..x..", "..y..", "..z.." не имеет инвентаря.")
         return false
     end
 
@@ -54,29 +54,8 @@ function stop_sound_at(x, y, z)
 end
 
 function on_broken(x, y, z, playerid)
-    local player_invid, _ = player.get_inventory(playerid)
-    local block_invid = inventory.get_block(x, y, z)
-
-    if block_invid == 0 then
-        print("[ОШИБКА] Инвентарь блока не найден для координат: " .. x .. ", " .. y .. ", " .. z)
-        return false
-    end
-
-    local block_itemid, block_count = inventory.get(block_invid, 0)
-
-    if block_itemid == nil or block_count == nil then
-        print("[ОШИБКА] Не удалось получить данные из инвентаря блока.")
-        return false
-    end
-
     stop_sound_at(x, y, z)
-
-    if block_itemid ~= 0 and block_count > 0 then
-        if inventory.add(player_invid, block_itemid, block_count) == 0 then
-            inventory.set(block_invid, 0, 0, 0)
-        end
-    end
-    inventory.set(block_invid, 0, 0, 0)
+    return true
 end
 
 
